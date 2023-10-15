@@ -1,12 +1,15 @@
 body {
     padding: 0;
+    margin: 0;
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(rgba(1,1,1,0.9), rgba(1,1,1,0.9)), url("../Images/code.jpg");
     background-color: #000000; /* Used if the image is unavailable */
     background-position: center; /* Center the image */
     background-attachment: fixed;
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-size:cover; /* Resize the background image to cover the entire container */
+    height: auto;
+    width: 100vw;
     color: #FFFFFF;
 }
 
