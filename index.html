@@ -302,9 +302,120 @@
         <div class="text-center text-white p-3" style="background-color: rgba(0,0,0,0.8)">Copyright © 2017-<script>document.write(/\d{4}/.exec(Date())[0])</script> | Aditya Birangal | All rights reserved.</div>
     </footer>
 
+    <!-- Update Notice Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true" data-backdrop="true" data-keyboard="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: rgba(0,0,0,0.95); border: 1px solid #ffffff; border-radius: 10px;">
+                <div class="modal-header" style="border-bottom: 1px solid #ffffff;">
+                    <h5 class="modal-title" id="updateModalLabel" style="color: #FFFFFF;">👋 Portfolio Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #FFFFFF;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="color: #FFFFFF;">
+                    <p>Hey, I'm updating this space.</p>
+                    <p>After a long time, this portfolio is getting a fresh look.</p>
+                    <p>Until then, you can find my latest work on <a href="https://www.linkedin.com/in/adityabirangal/" target="_blank" style="color: #47d3f7;">LinkedIn</a>.</p>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #ffffff;">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="background-color: #47d3f7; border-color: #47d3f7;">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Initialize Animation -->
     <script>
         AOS.init();
+    </script>
+    
+    <!-- Show update modal on page load -->
+    <script>
+        // Function to close modal (works with both Bootstrap and manual fallback)
+        function closeModal() {
+            var modal = document.getElementById('updateModal');
+            if (modal) {
+                // Try Bootstrap first
+                if (typeof jQuery !== 'undefined' && jQuery.fn.modal) {
+                    jQuery('#updateModal').modal('hide');
+                } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                    $('#updateModal').modal('hide');
+                } else {
+                    // Manual close
+                    modal.style.display = 'none';
+                    modal.classList.remove('show');
+                    document.body.classList.remove('modal-open');
+                    var backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                }
+            }
+        }
+        
+        // Add click handlers to close buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close button (X)
+            var closeBtn = document.querySelector('#updateModal .close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+            
+            // Got it button
+            var gotItBtn = document.querySelector('#updateModal .btn-primary');
+            if (gotItBtn) {
+                gotItBtn.addEventListener('click', closeModal);
+            }
+            
+            // Close on backdrop click
+            var modal = document.getElementById('updateModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+            }
+            
+            // Close on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' || e.keyCode === 27) {
+                    var modal = document.getElementById('updateModal');
+                    if (modal && modal.classList.contains('show')) {
+                        closeModal();
+                    }
+                }
+            });
+        });
+        
+        // Show modal after page fully loads
+        setTimeout(function() {
+            try {
+                // Try with jQuery
+                if (typeof jQuery !== 'undefined' && jQuery.fn.modal) {
+                    jQuery('#updateModal').modal('show');
+                } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                    $('#updateModal').modal('show');
+                } else {
+                    // Fallback: manually show modal
+                    var modal = document.getElementById('updateModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                        modal.classList.add('show');
+                        document.body.classList.add('modal-open');
+                        var backdrop = document.createElement('div');
+                        backdrop.className = 'modal-backdrop fade show';
+                        backdrop.id = 'modalBackdrop';
+                        document.body.appendChild(backdrop);
+                        
+                        // Add click handler to backdrop
+                        backdrop.addEventListener('click', closeModal);
+                    }
+                }
+            } catch(e) {
+                console.error('Error showing modal:', e);
+            }
+        }, 300);
     </script>
 
 </body>
